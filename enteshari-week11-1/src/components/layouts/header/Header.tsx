@@ -1,6 +1,7 @@
 import React from 'react';
 import { Logo, SearchForm} from "@/components";
 import Link from "next/link";
+import {IconBox} from "@/components/common/ui/icon-box";
 
 export function Header() {
     return (
@@ -10,15 +11,10 @@ export function Header() {
                 <SearchForm/>
                 <ul className="hidden lg:flex gap-5">
                     <li className="flex gap-2 cursor-pointer">
-                        <Link href="#"><i className="icon-user text-[24px]"></i></Link>
-                        <div className="hidden xl:inline-block text-medium text-gray-500 font-lato">Account</div>
+                        <IconBox icon={'icon-user'} link={"#"} size={24} title={"Account"} hiddeTitleOnMobile={true}/>
                     </li>
                     <li className="flex gap-2 cursor-pointer">
-                        <div className="relative">
-                            <span className="absolute -top-[10px] -right-[10px] w-[20px] h-[20px] bg-green-200 rounded-full flex justify-center items-center text-white text-xsmall">4</span>
-                            <Link href="#"><i className="icon-shopping-cart text-[24px]"></i></Link>
-                        </div>
-                        <div className="hidden xl:inline-block text-medium text-gray-500 font-lato">Card</div>
+                        <IconBox icon={'icon-shopping-cart'} badge={4} hiddeTitleOnMobile={true} title={'Card'} size={24} link={'#'}/>
                     </li>
                 </ul>
                 <button id="menu_btn" className="flex flex-col justify-between py-[4px] lg:hidden w-[24px] h-[24px]">
