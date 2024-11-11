@@ -1,5 +1,5 @@
-import Footer from "@/components/layouts/footer/Footer";
-import Header from "@/components/layouts/header/Header";
+import {Footer} from "@/components";
+import {Header} from "@/components";
 import React from "react";
 
 
@@ -7,7 +7,7 @@ interface Props{
     children:React.ReactNode;
 }
 
-function Layout({children}:Props) {
+export function Layout({children}:Props) {
     return (
         <>
             <Header/>
@@ -17,4 +17,3 @@ function Layout({children}:Props) {
     );
 }
 
-export default Layout;
