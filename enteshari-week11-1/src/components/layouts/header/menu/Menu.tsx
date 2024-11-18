@@ -1,5 +1,6 @@
 import Link from "next/link";
 import {IconBox} from "@/components/common/ui/icon-box";
+import {BrowsCategoryMock} from "@/mocks/BrowsCategoryMock";
 
 export function Menu() {
     return (
@@ -12,18 +13,12 @@ export function Menu() {
                 <div id="all_categories_box" className=" absolute z-20 bg-white left-0 top-16 w-[500px] rounded-[5px] border-[1px] border-green-300 p-[30px] hover:cursor-default">
                     <div id="all_cat_inner_box" className="flex flex-wrap justify-between gap-y-[15px]">
 
+                        {BrowsCategoryMock.map((item,index)=>{
+                            return(
+                                <IconBox icon={item.icon} title={item.title} titleClassName={'text-heading-sm text-blue-300'} size={30} path={item.iconPath} link={item.link} linkClass={'flex items-center gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300 cursor-pointer'}/>
 
-                        <IconBox icon={'icon-groceries-1'} title={'Milks and Dairies'} titleClassName={'text-heading-sm text-blue-300'} size={30} path={7} link={'#'} linkClass={'flex items-center gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300 cursor-pointer'}/>
-                        <IconBox icon={'icon-drinks-1'} title={'Wines & Drinks'} titleClassName={'text-heading-sm text-blue-300'} size={30} path={5} link={'#'} linkClass={'flex items-center gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300 cursor-pointer'}/>
-                        <IconBox icon={'icon-dress-1'} title={'Clothing & beauty'} titleClassName={'text-heading-sm text-blue-300'} size={30} path={4} link={'#'} linkClass={'flex items-center gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300 cursor-pointer'}/>
-                        <IconBox icon={'icon-crab-1'} title={'Fresh Seafood'} titleClassName={'text-heading-sm text-blue-300'} size={30} path={9} link={'#'} linkClass={'flex items-center gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300 cursor-pointer'}/>
-                        <IconBox icon={'icon-pet-food-1'} title={'Pet Foods & Toy'} titleClassName={'text-heading-sm text-blue-300'} size={30} path={8} link={'#'} linkClass={'flex items-center gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300 cursor-pointer'}/>
-                        <IconBox icon={'icon-sweet-1'} title={'Fast food'} titleClassName={'text-heading-sm text-blue-300'} size={30} path={7} link={'#'} linkClass={'flex items-center gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300 cursor-pointer'}/>
-                        <IconBox icon={'icon-dairy-products-1'} title={'Baking material'} titleClassName={'text-heading-sm text-blue-300'} size={30} path={5} link={'#'} linkClass={'flex items-center gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300 cursor-pointer'}/>
-                        <IconBox icon={'icon-grocery-1'} title={'Vegetables'} titleClassName={'text-heading-sm text-blue-300'} size={30} path={7} link={'#'} linkClass={'flex items-center gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300 cursor-pointer'}/>
-                        <IconBox icon={'icon-fruit-1'} title={'Fresh Fruit'} titleClassName={'text-heading-sm text-blue-300'} size={30} path={3} link={'#'} linkClass={'flex items-center gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300 cursor-pointer'}/>
-                        <IconBox icon={'icon-milk-products-1'} title={'Bread and Juice'} titleClassName={'text-heading-sm text-blue-300'} size={30} path={5} link={'#'} linkClass={'flex items-center gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300 cursor-pointer'}/>
-
+                            )
+                        })}
 
 
 
