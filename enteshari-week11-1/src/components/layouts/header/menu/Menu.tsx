@@ -5,9 +5,9 @@ export function Menu() {
     return (
         <>
             <div id="all_categories" className="flex relative cursor-pointer bg-green-200 gap-2.5 text-white px-4 py-3 rounded-[5px] items-center">
-                <IconBox icon={'icon-apps'} link={'#'} size={24} title={'Browse All Categories'} titleClassName={'text-medium'}/>
+                <IconBox icon={'icon-apps'} link={'#'} size={24} title={'Browse All Categories'} titleClassName={'text-medium'} linkClass={'flex items-center gap-2'}/>
 
-                <IconBox icon={'icon-angle-small-down'} size={24}/>
+                <IconBox icon={'icon-angle-small-down'} size={24} />
 
                 <div id="all_categories_box" className=" absolute z-20 bg-white left-0 top-16 w-[500px] rounded-[5px] border-[1px] border-green-300 p-[30px] hover:cursor-default">
                     <div id="all_cat_inner_box" className="flex flex-wrap justify-between gap-y-[15px]">
