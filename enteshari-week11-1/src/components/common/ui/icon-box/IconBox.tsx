@@ -32,7 +32,7 @@ export function IconBox({
     }
 
     return (
-        <Link href="#" className={linkClass}>
+        <Link href="#" className={`flex items-center cursor-pointer ${linkClass}`}>
             {
                 badge ?
                     <div className="relative">
