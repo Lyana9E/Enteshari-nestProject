@@ -3,10 +3,10 @@ export const PopularFruitsMock = [
         title: 'Seeds of Change Organic Quinoa, Brown, & Red Rice',
         imgSrc: '/assets/images/products/mango.png',
         category: 'Hodo Foods',
-        rate: 4.0,
+        rate: 5.0,
         weight: 500,
         unit: 'gram',
-        price: 3.50,
+        price: 8.50,
         sale_price: 2.80,
         label: 'Hot'
     },
