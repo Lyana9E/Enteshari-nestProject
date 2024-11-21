@@ -2,11 +2,8 @@ import {FeaturedCategoriesMock} from "@/mocks/FeaturedCategoriesMock";
 import {ImageView} from "@/components";
 import Link from "next/link";
 
-interface Props {
-    
-};
 
-export function FeaturedCategories({}: Props) {
+export function FeaturedCategories() {
     return (
         <div>
             <div className="flex flex-wrap justify-between gap-[24px]">

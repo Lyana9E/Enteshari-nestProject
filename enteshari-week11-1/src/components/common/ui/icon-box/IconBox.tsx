@@ -30,12 +30,12 @@ export function IconBox({
         span.push(<span className={`path${i}`}></span>)
 
     }
-
-    return (
-        <Link href="#" className={`flex items-center cursor-pointer ${linkClass}`}>
-            {
-                badge ?
-                    <div className="relative">
+    if(link){
+        return (
+            <Link href="#" className={`flex items-center cursor-pointer ${linkClass}`}>
+                {
+                    badge ?
+                        <div className="relative">
                         <span
                             className="absolute -top-[10px] -right-[10px] w-[20px] h-[20px] bg-green-200 rounded-full flex justify-center items-center text-white text-xsmall">{badge}</span>
                             <i className={` ${icon} text-[${size}px]`}>
@@ -45,16 +45,48 @@ export function IconBox({
 
                             </i>
 
-                    </div>
-                    :
+                        </div>
+                        :
                         <i className={` ${icon} text-[${size}px]`}>
                             {path && span}
                         </i>
-            }
-            {
-                title && <div
-                    className={`${hiddeTitleOnMobile ? 'hidden xl:inline-block' : 'inline-block'} ${titleClassName}`}>{title}</div>
-            }
-        </Link>);
+                }
+                {
+                    title && <div
+                        className={`${hiddeTitleOnMobile ? 'hidden xl:inline-block' : 'inline-block'} ${titleClassName}`}>{title}</div>
+                }
+            </Link>);
+
+    }
+    else{
+        return (
+            <>
+                {
+                    badge ?
+                        <div className="relative">
+                        <span
+                            className="absolute -top-[10px] -right-[10px] w-[20px] h-[20px] bg-green-200 rounded-full flex justify-center items-center text-white text-xsmall">{badge}</span>
+                            <i className={` ${icon} text-[${size}px]`}>
+                                {
+                                    path && span
+                                }
+
+                            </i>
+
+                        </div>
+                        :
+                        <i className={` ${icon} text-[${size}px]`}>
+                            {path && span}
+                        </i>
+                }
+                {
+                    title && <div
+                        className={`${hiddeTitleOnMobile ? 'hidden xl:inline-block' : 'inline-block'} ${titleClassName}`}>{title}</div>
+                }
+            </>
+        );
+    }
+
+
 }
 
