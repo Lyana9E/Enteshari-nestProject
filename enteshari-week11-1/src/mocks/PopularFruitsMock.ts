@@ -19,7 +19,7 @@ export const PopularFruitsMock = [
         unit: 'gram',
         price: 3.50,
         sale_price: 2.80,
-        label: 'Hot'
+        label: 'Sale'
     },
     {
         title: 'Angie’s Boomchickapop Sweet & Salty Kettle Corn',
@@ -49,8 +49,6 @@ export const PopularFruitsMock = [
         weight: 500,
         unit: 'gram',
         price: 3.50,
-        sale_price: 2.80,
-        label: 'sale'
     },
     {
         title: 'Seeds of Change Organic Quinoa, Brown, & Red Rice',
@@ -61,6 +59,6 @@ export const PopularFruitsMock = [
         unit: 'gram',
         price: 3.50,
         sale_price: 2.80,
-        label: 'Hot'
+        label: 'Sale'
     },
 ]

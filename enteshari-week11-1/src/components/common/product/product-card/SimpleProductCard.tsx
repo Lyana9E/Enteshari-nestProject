@@ -1,4 +1,4 @@
-import {IconBox, ImageView, Rating} from "@/components";
+import {Badge, IconBox, ImageView, Rating} from "@/components";
 import Link from "next/link";
 
 interface Props{
@@ -20,7 +20,7 @@ export function SimpleProductCard({sliderItem}:Props) {
         return (
             <>
                 <div className="group border-[1px] border-gray-200 hover:border-green-150 rounded-[10px] hover:shadow-[20px_20px_40px_0_rgba(24,24,24,0.07)] relative p-3 md:p-4 xl:px-5 xl:pb-5 lg:pt-[65px] h-full">
-                    <div className="badge badge--off absolute left-0 top-0 lg:top-5 rounded-tl-[10px] lg:rounded-tl-none">-17%</div>
+                    <Badge badge={sliderItem.label} price={sliderItem.price} salePrice={sliderItem.sale_price}/>
                     <div className="mt-8 hidden group-hover:flex rounded-[5px] border-[1px] border-green-200 w-max absolute top-[100px] left-[50%] translate-x-[-50%] bg-white productAction cursor-pointer">
                         <div className="p-2.5 border-r-[1px] border-r-green-200 hover:bg-green-150">
                             <IconBox icon={'icon-heart text-[15px] text-brand1'}/>
