@@ -71,6 +71,8 @@ export default function Home() {
                 <SimpleProductSlider sliderData={PopularFruitsMock} prevEl={'.swiper-nav-left2'}
                                      nextEl={'.swiper-nav-right2 '}/>
             </Section>
+
+
             <Section>
                 <div className="flex justify-between mb-[50px]">
                     <h2 className="text-heading6 md:text-heading5 lg:text-heading4 xl:text-heading3 text-blue-300">Best
