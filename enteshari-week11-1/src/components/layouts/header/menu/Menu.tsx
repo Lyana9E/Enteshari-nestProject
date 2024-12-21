@@ -2,8 +2,13 @@ import Link from "next/link";
 import {IconBox} from "@/components/common/ui/icon-box";
 import {BrowsCategoryMock} from "@/mocks/BrowsCategoryMock";
 import {MenuMock} from "@/mocks/MenuMock";
+import {useQuery} from "@tanstack/react-query";
+import {getMenuApiCall} from "@/api/Menu";
 
 export function Menu() {
+    const {data:menuData} =useQuery({queryKey:[getMenuApiCall.name],queryFn:()=> getMenuApiCall()})
+   console.log(menuData)
+
     return (
         <>
             <div id="all_categories" className=" flex relative cursor-pointer bg-green-200 gap-2.5 text-white px-4 py-3 rounded-[5px] items-center">
