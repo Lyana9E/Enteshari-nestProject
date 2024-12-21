@@ -4,7 +4,7 @@ import Link from "next/link";
 import {IconBox} from "@/components/common/ui/icon-box";
 import {EntityType, MenuItemType} from "@/types";
 import {useMenu} from "@/hooks/useMenu";
-import {useEffect, useState} from "react";
+import {useEffect, useState ,MouseEvent} from "react";
 
 export function Menu() {
 
@@ -13,11 +13,11 @@ export function Menu() {
     const {data: mainMenuItems} = useMenu({position: 'main_menu'})
     const {data: categoryMenuItems} = useMenu({position: 'brows-category'})
 
-    function categoryBtnClickHandler(e) {
+    function categoryBtnClickHandler(e:MouseEvent) {
         e.stopPropagation()
         setShowCategoryMenu((prevState: boolean) => !prevState)
     }
-    function categoryBodyClickHandler (e){
+    function categoryBodyClickHandler (e:MouseEvent){
         e.stopPropagation()
 
     }
