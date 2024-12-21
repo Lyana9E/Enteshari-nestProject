@@ -1,49 +1,14 @@
 import Link from "next/link";
 import {IconBox} from "@/components/common/ui/icon-box";
-import {BrowsCategoryMock} from "@/mocks/BrowsCategoryMock";
-import {MenuMock} from "@/mocks/MenuMock";
-import {useQuery} from "@tanstack/react-query";
-import {getMenuApiCall} from "@/api/Menu";
-import {EntityType, MenuItemType, MenuType, PopulateType} from "@/types";
+import {EntityType, MenuItemType} from "@/types";
+import {useMenu} from "@/hooks/useMenu";
 
 export function Menu() {
-    const {data: menuData} = useQuery({queryKey: [getMenuApiCall.name], queryFn: () => getMenuApiCall()})
 
-    let mainMenuItems: null | PopulateType<MenuItemType> = null
-    let categoryMenuItems: null | PopulateType<MenuItemType> = null
+    const {data:mainMenuItems}= useMenu({position:'main_menu'})
 
-    if (menuData) {
-        const findMenu = menuData.data.filter((item: EntityType<MenuType>) => item.attributes.position === 'main_menu');
-        if (findMenu.length > 0) {
-            mainMenuItems = findMenu[0].attributes.menu_items;
-            mainMenuItems.data.sort((a: EntityType<MenuItemType>, b: EntityType<MenuItemType>) => {
-                if (a.attributes.rank < b.attributes.rank)
-                    return -1
-                if (a.attributes.rank > b.attributes.rank)
-                    return 1
+    const {data:categoryMenuItems}= useMenu({position:'brows-category'})
 
-                return 0
-
-
-            })
-        }
-
-
-        const findCategoryMenu = menuData.data.filter((item: EntityType<MenuType>) => item.attributes.position === 'brows-category');
-        if (findCategoryMenu.length > 0) {
-            categoryMenuItems = findCategoryMenu[0].attributes.menu_items;
-            categoryMenuItems.data.sort((a: EntityType<MenuItemType>, b: EntityType<MenuItemType>) => {
-                if (a.attributes.rank < b.attributes.rank)
-                    return -1
-                if (a.attributes.rank > b.attributes.rank)
-                    return 1
-
-                return 0
-
-
-            })
-        }
-    }
 
     return (
         <>
