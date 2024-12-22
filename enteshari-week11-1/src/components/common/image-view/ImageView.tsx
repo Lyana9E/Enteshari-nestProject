@@ -9,9 +9,11 @@ interface Props{
     className?:string,
 }
 export function ImageView({src,alt,width,height,className}) {
+
+    const isRemote = src.substring(0,8)==='/uploads'
     return (
         <>
-            <Image src={src} alt={alt} width={width} height={height} className={className ?? ''} />
+            <Image src={`${isRemote ? 'https://nest.navaxcollege.com' + src : src}`} alt={alt} width={width} height={height} className={className ?? ''} />
 
         </>
     );
