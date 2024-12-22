@@ -2,6 +2,7 @@ import React, {useEffect, useState , MouseEvent} from 'react';
 import {Logo, Menu, SearchForm} from "@/components";
 import Link from "next/link";
 import {IconBox} from "@/components/common/ui/icon-box";
+import {useOverlay} from "@/hooks/use-overlay";
 
 export function Header() {
 
@@ -20,17 +21,25 @@ export function Header() {
     }
 
 
-    useEffect(()=>{
-        const clickHandler =()=>{
-            setShowMobileMenu(false);
+    // useEffect(()=>{
+    //     const clickHandler =()=>{
+    //         setShowMobileMenu(false);
+    //
+    //     }
+    //
+    //     document.addEventListener('click',clickHandler);
+    //
+    //     return ()=> document.removeEventListener('click',clickHandler);
+    //
+    // },[])
 
-        }
+    useOverlay({
+    onClick : ()=>{
+        setShowMobileMenu(false);
+    } , isOverFlowHidden :showMobileMenu
+    })
 
-        document.addEventListener('click',clickHandler);
 
-        return ()=> document.removeEventListener('click',clickHandler);
-
-    },[])
 
 
     return (
@@ -60,7 +69,7 @@ export function Header() {
             </div>
 
             <div className="border-gray-200 border-y h">
-                <div onClick={mobileMenuBodyClickHandler} className={`container transition-all w-4/5 rounded-[24px] lg:rounded-[0px] lg:w-auto flex absolute top-0 bottom-0 ${showMobileMenu ? 'left-0' :'-left-[100%]'} lg:static flex-col lg:flex-row justify-start lg:justify-between items-start pt-[16px] pl-[24px] lg:py-[13px] lg:items-center h-[100vh] bg-white lg:h-[70px] mobile-menu z-50`}>
+                <div onClick={mobileMenuBodyClickHandler} className={`${showMobileMenu ? 'left-0 fixed overflow-y-scroll' :'-left-[100%] absolute'} container transition-all w-4/5 rounded-[24px] lg:rounded-[0px] lg:w-auto flex  top-0 bottom-0  lg:static flex-col lg:flex-row justify-start lg:justify-between items-start pt-[16px] pl-[24px] lg:py-[13px] lg:items-center h-[100vh] bg-white lg:h-[70px] mobile-menu z-50`}>
                     <Menu/>
 
                     <div className="hidden lg:flex items-center shrink-0 gap-3">

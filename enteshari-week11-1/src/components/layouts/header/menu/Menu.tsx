@@ -5,13 +5,22 @@ import {IconBox} from "@/components/common/ui/icon-box";
 import {EntityType, MenuItemType} from "@/types";
 import {useMenu} from "@/hooks/useMenu";
 import {useEffect, useState ,MouseEvent} from "react";
+import {useOverlay} from "@/hooks/use-overlay";
 
 export function Menu() {
 
     const [showCategoryMenu, setShowCategoryMenu] = useState<boolean>(false)
-
     const {data: mainMenuItems} = useMenu({position: 'main_menu'})
     const {data: categoryMenuItems} = useMenu({position: 'brows-category'})
+
+
+
+    useOverlay({
+        onClick:()=>{
+            setShowCategoryMenu(false);
+        }
+    })
+
 
     function categoryBtnClickHandler(e:MouseEvent) {
         e.stopPropagation()
@@ -25,18 +34,18 @@ export function Menu() {
 
 
 
-    useEffect(() => {
-        const handleClick = () => {
-            setShowCategoryMenu(false);
-        };
-
-        document.addEventListener('click', handleClick);
-
-
-        return () => {
-            document.removeEventListener('click', handleClick);
-        };
-    }, []);
+    // useEffect(() => {
+    //     const handleClick = () => {
+    //         setShowCategoryMenu(false);
+    //     };
+    //
+    //     document.addEventListener('click', handleClick);
+    //
+    //
+    //     return () => {
+    //         document.removeEventListener('click', handleClick);
+    //     };
+    // }, []);
 
 
 
@@ -44,7 +53,7 @@ export function Menu() {
         <>
 
             <div id="all_categories" className={'relative'}>
-                <div onClick={categoryBtnClickHandler} className=" flex relative cursor-pointer bg-green-200 gap-2.5 text-white px-4 py-3 rounded-[5px] items-center">
+                <div onClick={categoryBtnClickHandler} className=" inline-flex relative cursor-pointer bg-green-200 gap-2.5 text-white px-4 py-3 rounded-[5px] items-center">
                     <IconBox icon={'icon-apps'} link={'#'} size={24} title={'Browse All Categories'}
                              titleClassName={'text-medium'} linkClass={'gap-2'}/>
 
@@ -52,7 +61,7 @@ export function Menu() {
                 </div>
                 <div id="all_categories_box"
                      onClick={categoryBodyClickHandler}
-                     className={`${showCategoryMenu ? 'flex' : 'hidden'} absolute z-20 bg-white left-0 top-16 w-[500px] rounded-[5px] border-[1px] border-green-300 p-[30px] hover:cursor-default`}>
+                     className={`${showCategoryMenu ? 'flex' : 'hidden'} lg:absolute z-20 bg-white left-0 top-16 lg:w-[500px] rounded-[5px] lg:border-[1px] border-green-300 lg:p-[30px] hover:cursor-default`}>
                     <div id="all_cat_inner_box" className="flex flex-wrap justify-between gap-y-[15px]">
 
                         {
@@ -64,7 +73,7 @@ export function Menu() {
                                              titleClassName={'text-heading-sm text-blue-300'} size={30}
                                              path={item.attributes.icon_path}
                                              link={item.attributes.link}
-                                             linkClass={'gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300'}/>
+                                             linkClass={'gap-3.5 rounded-[5px] lg:border-[1px] lg:border-gray-300 py-2.5 basis-full lg:basis-[calc(50%-8px)] justify-start pl-4 lg:hover:border-green-300'}/>
 
                                 )
                             })
@@ -79,7 +88,7 @@ export function Menu() {
 
                         {/*    )*/}
                         {/*})}*/}
-                        <IconBox icon={'icon-add'} linkClass={'gap-4 justify-center w-full mt-[17px]'} link={'#'}
+                        <IconBox icon={'icon-add'} linkClass={'gap-4 lg:justify-center w-full mt-[17px]'} link={'#'}
                                  size={24} title={'More Categories'} titleClassName={'text-heading-sm text-blue-300'}/>
 
                     </div>
