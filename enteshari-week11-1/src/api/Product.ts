@@ -55,12 +55,20 @@ import {ApiResponseType} from "@/types";
 
 interface  Props{
     populate?: Array<'categories' | 'thumbnail' | 'gallery'>,
-    filters?:{}
+    filters?:{},
+    sort?:Array<string>,
+    pagination?:{
+        withCount?:boolean,
+        page?:number,
+        pageSize?:number,
+        start?:number,
+        limit?:number,
+    }
 }
 
 
 
-export function getAllProductsApiCall ({populate,filters={}}:Props):Promise<ApiResponseType<ProductType>>{
+export function getAllProductsApiCall ({populate,filters={},sort=[] , pagination={}}:Props):Promise<ApiResponseType<ProductType>>{
 
 
 
@@ -68,8 +76,9 @@ export function getAllProductsApiCall ({populate,filters={}}:Props):Promise<ApiR
     return  apiClient.get('/products',{
         params:{
             populate:populate?.join(','),
-
             filters: filters,
+            sort:sort,
+            pagination:pagination
         }
     })
 }

@@ -37,6 +37,8 @@ export default function Home() {
         queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{discount_expire_date:{$notNull:true}}})
     })
 
+
+
     return (
         <>
             <Section>
