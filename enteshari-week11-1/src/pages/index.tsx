@@ -7,11 +7,7 @@ import {
     Section,
     SimpleProductSlider
 } from "@/components";
-import {PopularProductsMock} from "@/mocks/PopularProductsMock";
 import {PopularFruitsMock} from "@/mocks/PopularFruitsMock";
-import {BestSellersMock} from "@/mocks/BestSellerSliderMock";
-import Link from "next/link";
-import {DealsOfTheDaysMock} from "@/mocks/DealsOfTheDaysMock";
 import {useQuery} from "@tanstack/react-query";
 import {getAllProductsApiCall} from "@/api/Product";
 import {ProductType} from "@/types/api/Product";
@@ -21,10 +17,14 @@ import {ApiResponseType} from "@/types";
 export default function Home() {
 
     const {data:popularProductsData} = useQuery<ApiResponseType<ProductType>>({
-        queryKey: [getAllProductsApiCall.name],
+        queryKey: [getAllProductsApiCall.name , 'popularProduct'],
         queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{is_popular:true}})
     })
-    console.log('data',popularProductsData);
+
+    const {data:popularFruitsData} = useQuery<ApiResponseType<ProductType>>({
+        queryKey: [getAllProductsApiCall.name , 'popularFruit'],
+        queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{is_popular_fruit:true}})
+    })
 
     return (
         <>
@@ -67,22 +67,22 @@ export default function Home() {
                                      prevEl={'.swiper-nav-right'}/>}
             </Section>
 
-            {/*<Section className={'mb-[68px]'}>*/}
-            {/*    <div className="flex justify-between mb-[50px]">*/}
-            {/*        <h2 className="text-heading3 text-blue-300">Popular Fruits</h2>*/}
-            {/*        <div className="flex items-center gap-3">*/}
-            {/*            <IconBox*/}
-            {/*                icon={'swiper-nav-left2 icon-angle-small-left cursor-pointer bg-gray-100 p-2 rounded-full text-gray-500 hover:bg-green-200 hover:text-white'}*/}
-            {/*                size={24}/>*/}
-            {/*            <IconBox*/}
-            {/*                icon={'swiper-nav-right2 icon-angle-small-right cursor-pointer bg-gray-100 p-2 rounded-full text-gray-500 hover:bg-green-200 hover:text-white'}*/}
-            {/*                size={24}/>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
+            <Section className={'mb-[68px]'}>
+                <div className="flex justify-between mb-[50px]">
+                    <h2 className="text-heading3 text-blue-300">Popular Fruits</h2>
+                    <div className="flex items-center gap-3">
+                        <IconBox
+                            icon={'swiper-nav-left2 icon-angle-small-left cursor-pointer bg-gray-100 p-2 rounded-full text-gray-500 hover:bg-green-200 hover:text-white'}
+                            size={24}/>
+                        <IconBox
+                            icon={'swiper-nav-right2 icon-angle-small-right cursor-pointer bg-gray-100 p-2 rounded-full text-gray-500 hover:bg-green-200 hover:text-white'}
+                            size={24}/>
+                    </div>
+                </div>
 
-            {/*    <SimpleProductSlider sliderData={PopularFruitsMock} prevEl={'.swiper-nav-left2'}*/}
-            {/*                         nextEl={'.swiper-nav-right2 '}/>*/}
-            {/*</Section>*/}
+                {popularFruitsData && <SimpleProductSlider sliderData={popularFruitsData.data} prevEl={'.swiper-nav-left2'}
+                                     nextEl={'.swiper-nav-right2 '}/>}
+            </Section>
 
 
             {/*<Section>*/}
