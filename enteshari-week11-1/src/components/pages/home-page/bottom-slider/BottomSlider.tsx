@@ -6,12 +6,14 @@ import {useQuery} from "@tanstack/react-query";
 import {ApiResponseType} from "@/types";
 import {ProductType} from "@/types/api/Product";
 import {getAllProductsApiCall} from "@/api/Product";
+import { InView } from "react-intersection-observer";
+
 
 
 export function BottomSlider() {
 
 
-    const {data: TopRateData} = useQuery<ApiResponseType<ProductType>>({
+    const {data: TopRateData,refetch} = useQuery<ApiResponseType<ProductType>>({
         queryKey: [getAllProductsApiCall.name, 'topRateProduct'],
         queryFn: () => getAllProductsApiCall(
             {
@@ -23,7 +25,8 @@ export function BottomSlider() {
                     withCount: false,
                 }
 
-            })
+            }),
+        enabled:false
     })
 
     const {data: trendingProductsData} = useQuery<ApiResponseType<ProductType>>({
@@ -97,8 +100,10 @@ export function BottomSlider() {
                 {/*</SwiperSlide>*/}
 
                 <SwiperSlide>
+                    <InView onChange={(inView)=> inView && refetch()}>
                     {TopRateData &&
                         <ProductVerticalList title={'Top Rated'} data={TopRateData.data}/>}
+                    </InView>
                 </SwiperSlide>
 
 
