@@ -9,7 +9,7 @@ export interface ProductType {
     quantity: number
     price: number
     sell_price?: number
-    discount_expire_date?: string
+    discount_expire_date?: string |null
     rate: number
     weight?: number
     is_popular: boolean

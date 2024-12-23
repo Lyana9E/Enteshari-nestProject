@@ -19,17 +19,22 @@ export default function Home() {
 
     const {data:popularProductsData} = useQuery<ApiResponseType<ProductType>>({
         queryKey: [getAllProductsApiCall.name , 'popularProduct'],
-        queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{is_popular:true}})
+        queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{is_popular:{$eq:true}}})
     })
 
     const {data:popularFruitsData} = useQuery<ApiResponseType<ProductType>>({
         queryKey: [getAllProductsApiCall.name , 'popularFruit'],
-        queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{is_popular_fruit:true}})
+        queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{is_popular_fruit:{$eq:true}}})
     })
 
     const {data:bestSellerData} = useQuery<ApiResponseType<ProductType>>({
         queryKey: [getAllProductsApiCall.name , 'bestSeller'],
-        queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{is_best_seller:true}})
+        queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{is_best_seller:{$eq:true}}})
+    })
+
+    const {data:dealsOfDayData} = useQuery<ApiResponseType<ProductType>>({
+        queryKey: [getAllProductsApiCall.name , 'dealsProduct'],
+        queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{discount_expire_date:{$notNull:true}}})
     })
 
     return (
@@ -123,8 +128,9 @@ export default function Home() {
                     </Link>
                 </div>
 
-                <DealsOfTheDaySlider sliderData={DealsOfTheDaysMock}/>
+                {dealsOfDayData && <DealsOfTheDaySlider sliderData={dealsOfDayData.data}/>}
             </Section>
+
             <Section>
                 <BottomSlider/>
             </Section>
