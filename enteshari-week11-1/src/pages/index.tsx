@@ -7,12 +7,12 @@ import {
     Section,
     SimpleProductSlider
 } from "@/components";
-import {PopularFruitsMock} from "@/mocks/PopularFruitsMock";
-import {useQuery} from "@tanstack/react-query";
+import {dehydrate, QueryClient, useQuery} from "@tanstack/react-query";
 import {getAllProductsApiCall} from "@/api/Product";
 import {ProductType} from "@/types/api/Product";
 import {ApiResponseType} from "@/types";
 import Link from "next/link";
+import {getMenuApiCall} from "@/api/Menu";
 
 
 export default function Home() {
@@ -140,4 +140,20 @@ export default function Home() {
 
         </>
     );
+}
+
+export async function getServerSideProps() {
+    const queryClient = new QueryClient()
+
+
+    await queryClient.prefetchQuery({
+        queryKey: [getMenuApiCall.name],
+        queryFn:  getMenuApiCall,
+    })
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+        },
+    }
 }
