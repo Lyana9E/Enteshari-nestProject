@@ -1,25 +1,17 @@
 import {IconBox, ImageView, Rating} from "@/components";
 import {useEffect, useState} from "react";
 import {TimerHelper} from "@/utils/timer";
+import {EntityType} from "@/types";
+import {ProductType} from "@/types/api/Product";
 
 interface Props {
-    sliderItem: {
-        title: string,
-        imgSrc: string,
-        category: string,
-        rate: number,
-        weight: number,
-        unit: string,
-        price: number,
-        sale_price: number,
-        label: string,
-        dead_line:string,
+    data:EntityType<ProductType>,
 
-    };
+
 
 }
 
-export function ProductDealsCard({sliderItem}: Props) {
+export function ProductDealsCard({data}: Props) {
 
     const [remainTime , setRemainTimer] = useState(
     {
@@ -31,7 +23,7 @@ export function ProductDealsCard({sliderItem}: Props) {
 
     useEffect(()=>{
        const interval = setInterval(()=>{
-            const timerObj= TimerHelper(sliderItem.dead_line)
+            const timerObj= TimerHelper(data.attributes.discount_expire_date)
             setRemainTimer(timerObj);
 
         },1000);
@@ -41,7 +33,7 @@ export function ProductDealsCard({sliderItem}: Props) {
     },[])
     return (
         <div className="relative h-[438px]">
-            <ImageView src={sliderItem.imgSrc} height={335} width={378} alt={'product image'} className={'w-full'}/>
+            <ImageView src={data.attributes.thumbnail?.data?.attributes.url} height={335} width={378} alt={'product image'} className={'w-full'}/>
             <div className="absolute z-[21] left-[50%] translate-x-[-50%] top-[195px]">
                 <div className=" timer1 flex items-center gap-3 h-[60px]">
                     <div className="bg-white rounded-[6px] h-full aspect-square text-center">
@@ -65,25 +57,25 @@ export function ProductDealsCard({sliderItem}: Props) {
 
 
                 <div className="bg-white mt-2.5 px-8 pt-6 pb-4 rounded-[10px] shadow-c-xs">
-                    <div className="text-heading-sm text-blue-300">{sliderItem.title}</div>
+                    <div className="text-heading-sm text-blue-300">{data.attributes.title}</div>
                     <div className="flex w-[106px] justify-between h-4 items-center mt-1">
                         <div className="flex gap-4">
                             <div>salam</div>
-                            <Rating ratingNumber={sliderItem.rate} />
+                            <Rating ratingNumber={data.attributes.rate} />
                             <div className="text-xsmall text-gray-500 font-lato">(4.0)</div>
                         </div>
                     </div>
-                    <div className="font-lato text-xsmall text-gray-500 mt-1">{sliderItem.weight} {sliderItem.unit}</div>
+                    <div className="font-lato text-xsmall text-gray-500 mt-1">{data.attributes.weight} {data.attributes.unit}</div>
                     <div className="flex items-center justify-between mt-3">
                         {
-                            sliderItem.sale_price ?
+                            data.attributes.sell_price ?
                                 <div>
-                                    <span className="text-heading5 text-green-200">${sliderItem.sale_price}</span>
+                                    <span className="text-heading5 text-green-200">${data.attributes.sell_price}</span>
                                     <span
-                                        className="text-heading-sm line-through text-gray-500">${sliderItem.price}</span>
+                                        className="text-heading-sm line-through text-gray-500">${data.attributes.price}</span>
                                 </div>
                                 :
-                                <span className="text-heading5 text-green-200">${sliderItem.price}</span>
+                                <span className="text-heading5 text-green-200">${data.attributes.price}</span>
                         }
                         <div className="add-product">
                             <button className="flex items-center justify-center text-heading-sm text-green-200 border-[1px] rounded-[4px] bg-green-150 px-[10px] py-[5px]">Adds +</button>

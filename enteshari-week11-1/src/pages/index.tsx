@@ -7,14 +7,38 @@ import {
     Section,
     SimpleProductSlider
 } from "@/components";
-import {PopularProductsMock} from "@/mocks/PopularProductsMock";
-import {PopularFruitsMock} from "@/mocks/PopularFruitsMock";
-import {BestSellersMock} from "@/mocks/BestSellerSliderMock";
+import {dehydrate, QueryClient, useQuery} from "@tanstack/react-query";
+import {getAllProductsApiCall} from "@/api/Product";
+import {ProductType} from "@/types/api/Product";
+import {ApiResponseType} from "@/types";
 import Link from "next/link";
-import {DealsOfTheDaysMock} from "@/mocks/DealsOfTheDaysMock";
+import {getMenuApiCall} from "@/api/Menu";
 
 
 export default function Home() {
+
+    const {data:popularProductsData} = useQuery<ApiResponseType<ProductType>>({
+        queryKey: [getAllProductsApiCall.name , 'popularProduct'],
+        queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{is_popular:{$eq:true}}})
+    })
+
+    const {data:popularFruitsData} = useQuery<ApiResponseType<ProductType>>({
+        queryKey: [getAllProductsApiCall.name , 'popularFruit'],
+        queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{is_popular_fruit:{$eq:true}}})
+    })
+
+    const {data:bestSellerData} = useQuery<ApiResponseType<ProductType>>({
+        queryKey: [getAllProductsApiCall.name , 'bestSeller'],
+        queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{is_best_seller:{$eq:true}}})
+    })
+
+    const {data:dealsOfDayData} = useQuery<ApiResponseType<ProductType>>({
+        queryKey: [getAllProductsApiCall.name , 'dealsProduct'],
+        queryFn: () => getAllProductsApiCall({populate:['categories', 'thumbnail'], filters:{discount_expire_date:{$notNull:true}}})
+    })
+
+
+
     return (
         <>
             <Section>
@@ -52,8 +76,8 @@ export default function Home() {
                     </div>
                 </div>
 
-                <SimpleProductSlider sliderData={PopularProductsMock} nextEl={'.swiper-nav-left'}
-                                     prevEl={'.swiper-nav-right'}/>
+                { popularProductsData && <SimpleProductSlider sliderData={popularProductsData.data} nextEl={'.swiper-nav-left'}
+                                     prevEl={'.swiper-nav-right'}/>}
             </Section>
 
             <Section className={'mb-[68px]'}>
@@ -69,8 +93,8 @@ export default function Home() {
                     </div>
                 </div>
 
-                <SimpleProductSlider sliderData={PopularFruitsMock} prevEl={'.swiper-nav-left2'}
-                                     nextEl={'.swiper-nav-right2 '}/>
+                {popularFruitsData && <SimpleProductSlider sliderData={popularFruitsData.data} prevEl={'.swiper-nav-left2'}
+                                     nextEl={'.swiper-nav-right2 '}/>}
             </Section>
 
 
@@ -90,7 +114,7 @@ export default function Home() {
                         </Link>
                     </div>
                     <div className={'col-span-3'}>
-                        <BestSellersSlider sliderData={BestSellersMock}/>
+                        {bestSellerData && <BestSellersSlider sliderData={bestSellerData.data}/> }
                     </div>
 
 
@@ -103,11 +127,12 @@ export default function Home() {
                         Of The Days</h2>
                     <Link className="flex items-center" href="#">All Deals
                         <IconBox icon={'icon-angle-small-right'} size={24}/>
-                     </Link>
+                    </Link>
                 </div>
 
-                <DealsOfTheDaySlider sliderData={DealsOfTheDaysMock}/>
+                {dealsOfDayData && <DealsOfTheDaySlider sliderData={dealsOfDayData.data}/>}
             </Section>
+
             <Section>
                 <BottomSlider/>
             </Section>
@@ -115,4 +140,20 @@ export default function Home() {
 
         </>
     );
+}
+
+export async function getServerSideProps() {
+    const queryClient = new QueryClient()
+
+
+    await queryClient.prefetchQuery({
+        queryKey: [getMenuApiCall.name],
+        queryFn:  getMenuApiCall,
+    })
+
+    return {
+        props: {
+            dehydratedState: dehydrate(queryClient),
+        },
+    }
 }

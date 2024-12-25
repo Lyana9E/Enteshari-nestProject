@@ -1,16 +1,61 @@
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
 import {ProductVerticalList} from "@/components";
-import {TopSelling} from "@/mocks/TopSelling";
-import {TrendingProducts} from "@/mocks/TrendingProducts";
-import {RecentlyAdded} from "@/mocks/RecentlyAdded";
-import {TopRated} from "@/mocks/TopRated";
 
-interface Props {
-    
-};
+import {useQuery} from "@tanstack/react-query";
+import {ApiResponseType} from "@/types";
+import {ProductType} from "@/types/api/Product";
+import {getAllProductsApiCall} from "@/api/Product";
+import { InView } from "react-intersection-observer";
 
-export function BottomSlider({}: Props) {
+
+
+export function BottomSlider() {
+
+
+    const {data: TopRateData,refetch} = useQuery<ApiResponseType<ProductType>>({
+        queryKey: [getAllProductsApiCall.name, 'topRateProduct'],
+        queryFn: () => getAllProductsApiCall(
+            {
+                populate: ['thumbnail'],
+                sort: ['rate:desc'],
+                pagination: {
+                    page: 1,
+                    pageSize: 3,
+                    withCount: false,
+                }
+
+            }),
+        enabled:false
+    })
+
+    const {data: trendingProductsData} = useQuery<ApiResponseType<ProductType>>({
+        queryKey: [getAllProductsApiCall.name, 'trendingProduct'],
+        queryFn: () => getAllProductsApiCall({
+            populate: ['thumbnail']
+            , filters: {is_trending: {$eq: true}},
+            pagination: {
+                page: 1,
+                pageSize: 3,
+                withCount: false,
+            }
+        })
+    })
+
+    const {data: topSellingProductsData} = useQuery<ApiResponseType<ProductType>>({
+        queryKey: [getAllProductsApiCall.name, 'topSellingProduct'],
+        queryFn: () => getAllProductsApiCall({
+            populate: ['thumbnail']
+            , filters: {is_top_selling: {$eq: true}},
+            pagination: {
+                page: 1,
+                pageSize: 3,
+                withCount: false,
+            }
+        })
+    })
+
+
     return (
         <div>
             <Swiper
@@ -20,7 +65,7 @@ export function BottomSlider({}: Props) {
                 slidesPerView={1}
 
 
-                breakpoints={ {
+                breakpoints={{
                     768: {
                         slidesPerView: 2,
                         spaceBetween: 18
@@ -37,22 +82,29 @@ export function BottomSlider({}: Props) {
 
                 autoplay={true}
             >
-                <SwiperSlide>
-                    <ProductVerticalList title={'Top Selling'} data={TopSelling}/>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <ProductVerticalList title={'Trending Products '} data={TrendingProducts}/>
 
-                </SwiperSlide>
                 <SwiperSlide>
-                    <ProductVerticalList title={'Recently Added'} data={RecentlyAdded}/>
-
-                </SwiperSlide>
-                <SwiperSlide>
-                    <ProductVerticalList title={'Top Rated '} data={TopRated}/>
-
+                    {topSellingProductsData &&
+                        <ProductVerticalList title={'Top Selling'} data={topSellingProductsData.data}/>}
                 </SwiperSlide>
 
+
+                <SwiperSlide>
+                    {trendingProductsData &&
+                        <ProductVerticalList title={'Trending Products '} data={trendingProductsData.data}/>}
+
+                </SwiperSlide>
+                {/*<SwiperSlide>*/}
+                {/*    <ProductVerticalList title={'Recently Added'} data={RecentlyAdded}/>*/}
+
+                {/*</SwiperSlide>*/}
+
+                <SwiperSlide>
+                    <InView onChange={(inView)=> inView && refetch()}>
+                    {TopRateData &&
+                        <ProductVerticalList title={'Top Rated'} data={TopRateData.data}/>}
+                    </InView>
+                </SwiperSlide>
 
 
             </Swiper>

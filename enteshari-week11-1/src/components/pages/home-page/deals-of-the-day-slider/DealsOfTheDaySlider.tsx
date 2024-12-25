@@ -1,12 +1,13 @@
 import {Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay} from "swiper/modules";
-import {ProductDealsCard, SimpleProductCard} from "@/components";
-import {DealsOfTheDaysMock} from "@/mocks/DealsOfTheDaysMock";
+import {ProductDealsCard} from "@/components";
+import {EntityType} from "@/types";
+import {ProductType} from "@/types/api/Product";
 
 interface Props {
-    sliderData:Array<any>
+    sliderData:Array<EntityType<ProductType>>
 
-};
+}
 
 export function DealsOfTheDaySlider({sliderData}: Props) {
     return (
@@ -39,10 +40,10 @@ export function DealsOfTheDaySlider({sliderData}: Props) {
             >
 
                 {
-                    sliderData.map((sliderItem, index) => {
+                    sliderData.map((sliderItem:EntityType<ProductType>, index:number) => {
                         return (
                             <SwiperSlide key={index}>
-                                <ProductDealsCard sliderItem={sliderItem}/>
+                                <ProductDealsCard data={sliderItem}/>
 
                             </SwiperSlide>
 
