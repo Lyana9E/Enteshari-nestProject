@@ -1,20 +1,14 @@
 import {ImageView, Logo} from "@/components";
 import {IconBox} from "@/components/common/ui/icon-box";
 import Link from "next/link";
-import {useState} from "react";
-import {LoginModal} from "@/components/common/auth/LoginModal";
 
 export function Footer() {
 
-    const [showModal , setShowModal]=useState(false);
-    const onCloseHandler =()=>{
-        setShowModal(false)
-    }
+
     return (
         <div>
             <footer className="container mb-[68px]">
-                {showModal && <LoginModal onClose={onCloseHandler}/>}
-                <div onClick={()=>setShowModal(true)} className="mb-[68px]">
+                <div  className="mb-[68px]">
                     <div className="rounded-[6px] md:rounded-[14px] lg:rounded-[30px] bg-hero-pattern bg-[rgba(59,128,126,.2)] bg-opacity-20 bg-cover bg-top bg-no-repeat flex justify-between items-center mt-[38px] relative">
                         <div className="min-h-[160px] pl-3 pt-3 sm:pl-4 sm:pt4 md:pl-6 md:pt-6 lg:pl-10 lg:py-10 xl:pl-14 xl:py-14 2xl:py-[72px] 2xl:pl-[72px]">
                             <h2 className="max-w-[60%] text-heading5 sm:text-heading4 md:text-heading3 lg:text-heading2 tracking-[-0.04%] text-blue-300">Stay home & get your daily needs from our shop</h2>
@@ -25,8 +19,8 @@ export function Footer() {
                 </div>
                 <div className="flex flex-col md:flex-row justify-between flex-wrap gap-[16px] divide-y-2 md:divide-y-0 mb-[70px]">
                     <div className="max-w-[346px]">
-                        <Logo/>
-                        <div className="font-lato text-medium mt-4 lg:mt-6">Pellentesque posuere orci lobortis</div>
+                        <Logo />
+                        <div  className="font-lato text-medium mt-4 lg:mt-6">Pellentesque posuere orci lobortis</div>
                         <div className="flex items-start gap-2.5 mt-4 lg:mt-6">
                             <IconBox icon={'icon-marker-brand'}/>
                             <div className="font-lato text-medium text-blue-300"><span className="font-bold">Address:</span> 5171 W Campbell Ave undefined Kent, Utah 53127 United States</div>
