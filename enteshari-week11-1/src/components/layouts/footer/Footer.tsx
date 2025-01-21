@@ -6,11 +6,14 @@ import {LoginModal} from "@/components/common/auth/LoginModal";
 
 export function Footer() {
 
-    const [showModal , setShowModal]=useState(false)
+    const [showModal , setShowModal]=useState(false);
+    const onCloseHandler =()=>{
+        setShowModal(false)
+    }
     return (
         <div>
             <footer className="container mb-[68px]">
-                {showModal && <LoginModal/>}
+                {showModal && <LoginModal onClose={onCloseHandler}/>}
                 <div onClick={()=>setShowModal(true)} className="mb-[68px]">
                     <div className="rounded-[6px] md:rounded-[14px] lg:rounded-[30px] bg-hero-pattern bg-[rgba(59,128,126,.2)] bg-opacity-20 bg-cover bg-top bg-no-repeat flex justify-between items-center mt-[38px] relative">
                         <div className="min-h-[160px] pl-3 pt-3 sm:pl-4 sm:pt4 md:pl-6 md:pt-6 lg:pl-10 lg:py-10 xl:pl-14 xl:py-14 2xl:py-[72px] 2xl:pl-[72px]">

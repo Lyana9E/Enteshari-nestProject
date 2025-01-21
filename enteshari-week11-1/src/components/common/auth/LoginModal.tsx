@@ -2,12 +2,13 @@ import {Modal} from "@/components";
 import React from "react";
 
 interface Props {
+    onClose:()=>void
     
 }
 
-export function LoginModal({}: Props) {
+export function LoginModal({onClose}: Props) {
     return (
-        <Modal title={'salam'} closeModal={()=>{}}>
+        <Modal title={'salam'} closeModal={(onClose)}>
             <form>
 
             </form>
