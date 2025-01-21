@@ -1,13 +1,16 @@
-import React, {useEffect, useState , MouseEvent} from 'react';
-import {Logo, Menu, Modal, SearchForm} from "@/components";
+import React, { useState, MouseEvent, useContext} from 'react';
+import {Logo, Menu, RegisterModal, SearchForm} from "@/components";
 import Link from "next/link";
 import {IconBox} from "@/components/common/ui/icon-box";
 import {useOverlay} from "@/hooks/use-overlay";
 import {LoginModal} from "@/components/common/auth/LoginModal";
+import {useModal} from "@/store/ModalContext";
 
 export function Header() {
 
     const [showMobileMenu,setShowMobileMenu] = useState<boolean>(false);
+    const {currentModal,openModal,closeModal}= useModal()
+
 
     const menuBtnClickHandler =(e:MouseEvent)=>{
         e.stopPropagation()
@@ -43,8 +46,11 @@ export function Header() {
 
 
 
+
     return (
         <header className="mb-[33px]">
+            {currentModal ==='login' && <LoginModal onClose={closeModal} />}
+            {currentModal ==='register' && <RegisterModal onClose={closeModal}/>}
             <div className="container flex items-center justify-between py-4 md:py-6 xl:py-8">
                 <Logo/>
                 <div
@@ -52,7 +58,7 @@ export function Header() {
                     <SearchForm inputClassName={'py-[15px]'}/>
                 </div>
                 <ul className="hidden lg:flex gap-5">
-                    <li className="flex gap-2 cursor-pointer">
+                    <li onClick={()=>openModal('login')} className="flex gap-2 cursor-pointer">
                         <IconBox icon={'icon-user'} link={"#"} size={24} title={"Account"} hiddeTitleOnMobile={true}
                                  titleClassName={'text-medium text-gray-500 font-lato'} linkClass={'gap-1'}/>
                     </li>
