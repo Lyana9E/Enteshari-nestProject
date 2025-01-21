@@ -1,8 +1,9 @@
 import React, {useEffect, useState , MouseEvent} from 'react';
-import {Logo, Menu, SearchForm} from "@/components";
+import {Logo, Menu, Modal, SearchForm} from "@/components";
 import Link from "next/link";
 import {IconBox} from "@/components/common/ui/icon-box";
 import {useOverlay} from "@/hooks/use-overlay";
+import {LoginModal} from "@/components/common/auth/LoginModal";
 
 export function Header() {
 
