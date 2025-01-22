@@ -12,7 +12,7 @@ interface Props {
 export function Modal({children,title,closeModal}: Props) {
     return (
         <Portal closeModal={closeModal}>
-        <div className={' z-10 min-w-[100vw] md:min-w-[50vw]  min-h-[100vh] md:min-h-[50vh]  rounded bg-gray-200'}>
+        <div className={' z-10 min-w-[100vw] md:min-w-[50vw]  min-h-[100vh] md:min-h-[50vh] overflow-auto rounded bg-gray-200'}>
             <div className={'flex justify-between  bg-white p-8 text-[22px]'}>
                 <div onClick={closeModal} className={'cursor-pointer'}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" fill="currentColor" viewBox="0 0 30 30">
