@@ -2,18 +2,15 @@ import React, {useId} from "react";
 import { UseFormRegisterReturn ,FieldErrors} from "react-hook-form";
 import {ErrorMessage} from "@/components";
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLInputElement>{
     inputType?:'text'|'email'|'password'|'tel'|'number';
     label?:string;
-    placeholder?:string;
     register: UseFormRegisterReturn<any>;
     errors: FieldErrors<any>;
-
-
-
 }
 
-export function Input({inputType='text',label,placeholder='',register,errors}: Props) {
+export function Input({inputType='text',label , register, errors, ...Rest}: Props) {
+
     // const id = Math.random().toString();
     const id:string =useId();
     const name = register.name;
@@ -29,7 +26,7 @@ export function Input({inputType='text',label,placeholder='',register,errors}: P
                 {label &&     <label htmlFor={id} className={'font-bold text-nowrap'}>
                     {label}:
                 </label>}
-                <input className={`bg-white rounded-md p-2 w-full border ${hasError && 'border-red'}`}  id={id} type={inputType} placeholder={placeholder} {...register} />
+                <input className={`bg-white rounded-md p-2 w-full border ${hasError && 'border-red'}`}  id={id} type={inputType} {...Rest} {...register} />
             </div>
             <ErrorMessage name={name} errors={errors}/>
         </div>
