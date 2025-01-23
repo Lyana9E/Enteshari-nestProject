@@ -6,10 +6,11 @@ import {useOverlay} from "@/hooks/use-overlay";
 import {LoginModal} from "@/components/common/auth/LoginModal";
 import {useModal} from "@/store/ModalContext";
 import {useUser} from "@/store/AuthContext";
+import {toast} from "react-toastify";
 
 export function Header() {
 
-    const {isLogin} =useUser()
+    const {isLogin,logOut} =useUser()
     const [showMobileMenu,setShowMobileMenu] = useState<boolean>(false);
     const {currentModal,openModal,closeModal}= useModal()
 
@@ -23,6 +24,18 @@ export function Header() {
 
     const mobileMenuBodyClickHandler = (e:MouseEvent)=>{
         e.stopPropagation()
+
+    }
+
+    const AccountHandler = ()=>{
+        if(isLogin){
+            logOut();
+            toast.success('you log out successfully ')
+
+        }else {
+            openModal('login')
+
+        }
 
     }
 
@@ -60,7 +73,7 @@ export function Header() {
                     <SearchForm inputClassName={'py-[15px]'}/>
                 </div>
                 <ul className="hidden lg:flex gap-5">
-                    <li onClick={()=>openModal('login')} className="flex gap-2 cursor-pointer">
+                    <li onClick={()=>AccountHandler()} className="flex gap-2 cursor-pointer">
                         <IconBox icon={'icon-user'} link={"#"} size={24} title={`${isLogin ? 'LogOut' : 'Login/Register'}`} hiddeTitleOnMobile={true}
                                  titleClassName={'text-medium text-gray-500 font-lato'} linkClass={'gap-1'}/>
                     </li>

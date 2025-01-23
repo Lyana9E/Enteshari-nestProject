@@ -28,7 +28,6 @@ export function RegisterModal({onClose}: Props) {
     const onSubmit = (data:RegisterFormDate) => {
         Mutate.mutate(data,{
             onSuccess:(response)=>{
-                window.localStorage.setItem('token',response.jwt);
                 login(response.jwt,response.user);
                 toast.success('You registered successfully ');
                 closeModal()

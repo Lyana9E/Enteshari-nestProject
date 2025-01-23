@@ -6,11 +6,11 @@ interface Props{
     children : ReactNode;
 }
 interface AuthContextProps{
-    isLogin:boolean ,
-    login: (jwt:string ,user:UserType)=>void
-
+    isLogin:boolean ;
+    login: (jwt:string ,user:UserType)=>void;
+    logOut:()=>void;
 }
-const AuthContext = createContext<AuthContextProps>({isLogin:false , login:()=>{}});
+const AuthContext = createContext<AuthContextProps>({isLogin:false , login:()=>{},logOut:()=>{}});
 
 export const useUser = ()=>  useContext(AuthContext)
 
@@ -30,4 +30,10 @@ export function AuthContextProvider({children}:Props) {
         setIsLogin(true);
 
     }
-    return <AuthContext.Provider value={{isLogin:isLogin , login:LoginHandler}}>{children}</AuthContext.Provider>}
+
+    const LogOutHandler = ()=>{
+        window.localStorage.removeItem('token');
+        window.localStorage.removeItem('user');
+        setIsLogin(false)
+    }
+    return <AuthContext.Provider value={{isLogin:isLogin , login:LoginHandler,logOut:LogOutHandler}}>{children}</AuthContext.Provider>}
