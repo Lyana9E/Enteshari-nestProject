@@ -24,6 +24,7 @@ export function RegisterModal({onClose}: Props) {
     const {register, handleSubmit, formState: {errors}} = useForm<FormDate>();
 
     const Mutate = useMutation({mutationFn:RegisterApiCall})
+    console.log('is',isLogin);
     const onSubmit = (data:FormDate) => {
         Mutate.mutate(data,{
             onSuccess:(response)=>{

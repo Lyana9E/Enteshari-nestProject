@@ -1,4 +1,4 @@
-import {createContext, ReactNode, useContext, useState} from "react";
+import {createContext, ReactNode, useContext, useEffect, useState} from "react";
 import {UserType} from "@/types/api/Auth";
 
 
@@ -17,6 +17,13 @@ export const useUser = ()=>  useContext(AuthContext)
 
 export function AuthContextProvider({children}:Props) {
     const [isLogin , setIsLogin]= useState<boolean>(false);
+
+    useEffect(() => {
+        if(window.localStorage.getItem('token')){
+            setIsLogin(true)
+
+        }
+    }, []);
     const LoginHandler =(jwt:string ,user:UserType)=>{
         window.localStorage.setItem('token',jwt);
         window.localStorage.setItem('user',JSON.stringify(user));
